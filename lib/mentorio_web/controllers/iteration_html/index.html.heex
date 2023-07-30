@@ -1,0 +1,28 @@
+<.header>
+  Listing Iterations
+  <:actions>
+    <.link href={~p"/iterations/new"}>
+      <.button>New Iteration</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="iterations" rows={@iterations} row_click={&JS.navigate(~p"/iterations/#{&1}")}>
+  <:col :let={iteration} label="Name"><%= iteration.name %></:col>
+  <:col :let={iteration} label="Theme"><%= iteration.theme %></:col>
+  <:col :let={iteration} label="Purpose"><%= iteration.purpose %></:col>
+  <:col :let={iteration} label="Notes"><%= iteration.notes %></:col>
+  <:col :let={iteration} label="Start date"><%= iteration.start_date %></:col>
+  <:col :let={iteration} label="End date"><%= iteration.end_date %></:col>
+  <:action :let={iteration}>
+    <div class="sr-only">
+      <.link navigate={~p"/iterations/#{iteration}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/iterations/#{iteration}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={iteration}>
+    <.link href={~p"/iterations/#{iteration}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>

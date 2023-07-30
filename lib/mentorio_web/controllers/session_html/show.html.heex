@@ -1,0 +1,15 @@
+<.header>
+  Session <%= @session.id %>
+  <:subtitle>This is a session record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/sessions/#{@session}/edit"}>
+      <.button>Edit session</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Notes"><%= @session.notes %></:item>
+</.list>
+
+<.back navigate={~p"/sessions"}>Back to sessions</.back>

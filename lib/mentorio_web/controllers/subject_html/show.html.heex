@@ -1,0 +1,16 @@
+<.header>
+  Subject <%= @subject.id %>
+  <:subtitle>This is a subject record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/subjects/#{@subject}/edit"}>
+      <.button>Edit subject</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @subject.name %></:item>
+  <:item title="Description"><%= @subject.description %></:item>
+</.list>
+
+<.back navigate={~p"/subjects"}>Back to subjects</.back>

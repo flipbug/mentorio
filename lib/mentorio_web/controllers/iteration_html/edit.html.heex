@@ -1,0 +1,8 @@
+<.header>
+  Edit Iteration <%= @iteration.id %>
+  <:subtitle>Use this form to manage iteration records in your database.</:subtitle>
+</.header>
+
+<.iteration_form changeset={@changeset} action={~p"/iterations/#{@iteration}"} />
+
+<.back navigate={~p"/iterations"}>Back to iterations</.back>

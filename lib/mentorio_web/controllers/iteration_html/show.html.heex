@@ -1,0 +1,20 @@
+<.header>
+  Iteration <%= @iteration.id %>
+  <:subtitle>This is a iteration record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/iterations/#{@iteration}/edit"}>
+      <.button>Edit iteration</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @iteration.name %></:item>
+  <:item title="Theme"><%= @iteration.theme %></:item>
+  <:item title="Purpose"><%= @iteration.purpose %></:item>
+  <:item title="Notes"><%= @iteration.notes %></:item>
+  <:item title="Start date"><%= @iteration.start_date %></:item>
+  <:item title="End date"><%= @iteration.end_date %></:item>
+</.list>
+
+<.back navigate={~p"/iterations"}>Back to iterations</.back>

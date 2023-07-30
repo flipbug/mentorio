@@ -1,0 +1,8 @@
+<.header>
+  Edit Session <%= @session.id %>
+  <:subtitle>Use this form to manage session records in your database.</:subtitle>
+</.header>
+
+<.session_form changeset={@changeset} action={~p"/sessions/#{@session}"} />
+
+<.back navigate={~p"/sessions"}>Back to sessions</.back>

@@ -31,6 +31,8 @@ defmodule MentorioWeb.UserRegistrationLive do
           Oops, something went wrong! Please check the errors below.
         </.error>
 
+        <.input field={@form[:firstname]} type="text" label="Firstname" required />
+        <.input field={@form[:lastname]} type="text" label="Lastname" />
         <.input field={@form[:email]} type="email" label="Email" required />
         <.input field={@form[:password]} type="password" label="Password" required />
 

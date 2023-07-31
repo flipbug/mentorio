@@ -21,6 +21,25 @@ defmodule MentorioWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+
+  end
+
+  scope "/", MentorioWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    resources "/iterations", IterationController do
+      resources "/sessions", SessionController
+    end
+
+    resources "/subjects", SubjectController
+
+    live_session :admin,
+      on_mount: [{MentorioWeb.UserAuth, :ensure_authenticated}] do
+      live "/dashboard", DashboardLive, :index
+    end
+
+
   end
 
   # Other scopes may use custom stacks.

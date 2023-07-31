@@ -14,6 +14,6 @@ defmodule Mentorio.Study.Subject do
   def changeset(subject, attrs) do
     subject
     |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> validate_required([:name])
   end
 end

@@ -8,7 +8,6 @@
 </.header>
 
 <.table id="iterations" rows={@iterations} row_click={&JS.navigate(~p"/iterations/#{&1}")}>
-  <:col :let={iteration} label="Name"><%= iteration.name %></:col>
   <:col :let={iteration} label="Theme"><%= iteration.theme %></:col>
   <:col :let={iteration} label="Purpose"><%= iteration.purpose %></:col>
   <:col :let={iteration} label="Notes"><%= iteration.notes %></:col>

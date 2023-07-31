@@ -17,6 +17,6 @@ defmodule Mentorio.Study.Iteration do
   def changeset(iteration, attrs) do
     iteration
     |> cast(attrs, [:theme, :purpose, :notes, :start_date, :end_date])
-    |> validate_required([:theme, :purpose, :notes, :start_date, :end_date])
+    |> validate_required([:theme, :purpose, :start_date, :end_date])
   end
 end

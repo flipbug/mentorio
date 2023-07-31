@@ -12,6 +12,15 @@ defmodule MentorioWeb.UserSettingsLive do
 
     <div class="space-y-12 divide-y">
       <div>
+        <.simple_form for={@profile_form} id="profile_form" phx-submit="update_profile">
+          <.input field={@profile_form[:firstname]} label="Firstname" />
+          <.input field={@profile_form[:lastname]} label="Lastname" />
+          <:actions>
+            <.button phx-disable-with="Changing...">Change Profile</.button>
+          </:actions>
+        </.simple_form>
+      </div>
+      <div>
         <.simple_form
           for={@email_form}
           id="email_form"
@@ -90,17 +99,38 @@ defmodule MentorioWeb.UserSettingsLive do
     user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
+    profile_changeset = Accounts.change_user_profile(user)
 
     socket =
       socket
       |> assign(:current_password, nil)
       |> assign(:email_form_current_password, nil)
       |> assign(:current_email, user.email)
+      |> assign(:profile_form, to_form(profile_changeset))
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
 
     {:ok, socket}
+  end
+
+  def handle_event("update_profile", params, socket) do
+    %{"user" => user_params} = params
+    user = socket.assigns.current_user
+
+    case Accounts.update_user_profile(user, user_params) do
+      {:ok, user} ->
+        profile_form =
+          user
+          |> Accounts.change_user_profile()
+          |> to_form()
+
+        {:noreply,
+         socket |> put_flash(:info, "Profile updated") |> assign(profile_form: profile_form)}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, profile_form: to_form(changeset))}
+    end
   end
 
   def handle_event("validate_email", params, socket) do

@@ -4,11 +4,19 @@ defmodule Mentorio.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :firstname, :string
+    field :lastname, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
     timestamps()
+  end
+
+  def profile_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:firstname, :lastname])
+    |> validate_required([:firstname])
   end
 
   @doc """
@@ -36,7 +44,8 @@ defmodule Mentorio.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :firstname, :lastname])
+    |> validate_required([:email, :password, :firstname])
     |> validate_email(opts)
     |> validate_password(opts)
   end

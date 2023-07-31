@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="en" class="dark [scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,48 +11,42 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-white antialiased">
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <%= if @current_user do %>
-        <li class="text-[0.8125rem] leading-6 text-zinc-900">
-          <%= @current_user.email %>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Settings
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/log_out"}
-            method="delete"
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Log out
-          </.link>
-        </li>
-      <% else %>
-        <li>
-          <.link
-            href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Register
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/users/log_in"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-          >
-            Log in
-          </.link>
-        </li>
-      <% end %>
-    </ul>
+  <body class="bg-white antialiased dark:bg-slate-900 dark:text-white">
+    <header class="mt-4">
+      <div class="flex items-center justify-between container mx-auto py-3 text-sm">
+        <div class="flex items-center gap-4 ">
+          <a href="/" class="text-2xl flex align-middle ">
+            <MentorioWeb.Helper.logo /> <span class="ml-2 leading-10">mentorio</span>
+          </a>
+        </div>
+        <div class="flex items-center gap-5 leading-6 text-zinc-900 dark:text-slate-200">
+          <%= if @current_user do %>
+            <%= if @conn.request_path != ~p"/dashboard" do %>
+              <.link href={~p"/dashboard"} class="leading-6 mr-8">
+                <.button>
+                  Dashboard
+                </.button>
+              </.link>
+            <% end %>
+
+            <.link href={~p"/users/settings"} class="leading-6" title="settings">
+              <.icon name="hero-cog-8-tooth" class="h-5 w-5 hover:bg-indigo-500" />
+            </.link>
+            <.link href={~p"/users/log_out"} method="delete" class="leading-6" title="logout">
+              <.icon name="hero-power" class="h-5 w-5 hover:bg-indigo-500" />
+            </.link>
+          <% else %>
+            <.link href={~p"/users/register"} class=" leading-6   ">
+              Register
+            </.link>
+            <.link href={~p"/users/log_in"} class="leading-6   ">
+              Log in
+            </.link>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
     <%= @inner_content %>
   </body>
 </html>

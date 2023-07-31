@@ -3,9 +3,30 @@ defmodule MentorioWeb.IterationControllerTest do
 
   import Mentorio.StudyFixtures
 
-  @create_attrs %{name: "some name", theme: "some theme", purpose: "some purpose", notes: "some notes", start_date: ~D[2023-07-29], end_date: ~D[2023-07-29]}
-  @update_attrs %{name: "some updated name", theme: "some updated theme", purpose: "some updated purpose", notes: "some updated notes", start_date: ~D[2023-07-30], end_date: ~D[2023-07-30]}
-  @invalid_attrs %{name: nil, theme: nil, purpose: nil, notes: nil, start_date: nil, end_date: nil}
+  @create_attrs %{
+    name: "some name",
+    theme: "some theme",
+    purpose: "some purpose",
+    notes: "some notes",
+    start_date: ~D[2023-07-29],
+    end_date: ~D[2023-07-29]
+  }
+  @update_attrs %{
+    name: "some updated name",
+    theme: "some updated theme",
+    purpose: "some updated purpose",
+    notes: "some updated notes",
+    start_date: ~D[2023-07-30],
+    end_date: ~D[2023-07-30]
+  }
+  @invalid_attrs %{
+    name: nil,
+    theme: nil,
+    purpose: nil,
+    notes: nil,
+    start_date: nil,
+    end_date: nil
+  }
 
   describe "index" do
     test "lists all iterations", %{conn: conn} do

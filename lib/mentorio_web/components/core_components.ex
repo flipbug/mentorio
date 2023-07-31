@@ -113,9 +113,9 @@ defmodule MentorioWeb.CoreComponents do
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
       class={[
-        "fixed top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
-        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900",
-        @kind == :error && "bg-rose-50 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+        "fixed top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-0",
+        @kind == :info && "bg-emerald-200 dark:bg-emerald-900 dark:text-gray-50 text-emerald-800 ",
+        @kind == :error && "bg-rose-200 text-rose-900 shadow-md dark:bg-rose-900 dark:text-gray-50"
       ]}
       {@rest}
     >
@@ -145,6 +145,8 @@ defmodule MentorioWeb.CoreComponents do
     ~H"""
     <.flash kind={:info} title="Success!" flash={@flash} />
     <.flash kind={:error} title="Error!" flash={@flash} />
+    <%!-- TODO add some delay, to prevent this flash popping up on page load
+
     <.flash
       id="client-error"
       kind={:error}
@@ -154,7 +156,7 @@ defmodule MentorioWeb.CoreComponents do
       hidden
     >
       Attempting to reconnect <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
-    </.flash>
+    </.flash> --%>
 
     <.flash
       id="server-error"
@@ -196,7 +198,7 @@ defmodule MentorioWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div class="mt-10 space-y-8 bg-white dark:bg-slate-900">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           <%= render_slot(action, f) %>
@@ -226,7 +228,7 @@ defmodule MentorioWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75 rounded-lg bg-indigo-500 hover:bg-indigo-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "text-sm leading-6 text-white active:text-white/80",
         @class
       ]}
       {@rest}
@@ -301,7 +303,7 @@ defmodule MentorioWeb.CoreComponents do
 
     ~H"""
     <div phx-feedback-for={@name}>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+      <label class="flex items-center gap-2 text-sm leading-6 text-zinc-600 dark:text-slate-500">
         <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
@@ -309,7 +311,7 @@ defmodule MentorioWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
+          class="rounded  text-zinc-900 focus:ring-0 dark:bg-slate-700"
           {@rest}
         />
         <%= @label %>
@@ -371,7 +373,10 @@ defmodule MentorioWeb.CoreComponents do
         class={[
           "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
+          "phx-no-feedback:dark:border-slate-700 phx-no-feedback:dark:focus:border-indigo-700",
+          "dark:bg-slate-800 dark:text-slate-100",
+          @errors == [] &&
+            "border-zinc-300 focus:border-zinc-400 dark:border-slate-700 dark:focus:border-indigo-700",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}
@@ -389,7 +394,7 @@ defmodule MentorioWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="block text-sm leading-6 text-zinc-800 dark:text-slate-100">
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -422,10 +427,10 @@ defmodule MentorioWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-zinc-800">
+        <h1 class="text-2xl font-semibold leading-8 text-zinc-800 dark:text-slate-100">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
+        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600 dark:text-slate-400">
           <%= render_slot(@subtitle) %>
         </p>
       </div>

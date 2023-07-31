@@ -8,7 +8,14 @@ defmodule Mentorio.StudyTest do
 
     import Mentorio.StudyFixtures
 
-    @invalid_attrs %{name: nil, theme: nil, purpose: nil, notes: nil, start_date: nil, end_date: nil}
+    @invalid_attrs %{
+      name: nil,
+      theme: nil,
+      purpose: nil,
+      notes: nil,
+      start_date: nil,
+      end_date: nil
+    }
 
     test "list_iterations/0 returns all iterations" do
       iteration = iteration_fixture()
@@ -21,7 +28,14 @@ defmodule Mentorio.StudyTest do
     end
 
     test "create_iteration/1 with valid data creates a iteration" do
-      valid_attrs = %{name: "some name", theme: "some theme", purpose: "some purpose", notes: "some notes", start_date: ~D[2023-07-29], end_date: ~D[2023-07-29]}
+      valid_attrs = %{
+        name: "some name",
+        theme: "some theme",
+        purpose: "some purpose",
+        notes: "some notes",
+        start_date: ~D[2023-07-29],
+        end_date: ~D[2023-07-29]
+      }
 
       assert {:ok, %Iteration{} = iteration} = Study.create_iteration(valid_attrs)
       assert iteration.name == "some name"
@@ -38,7 +52,15 @@ defmodule Mentorio.StudyTest do
 
     test "update_iteration/2 with valid data updates the iteration" do
       iteration = iteration_fixture()
-      update_attrs = %{name: "some updated name", theme: "some updated theme", purpose: "some updated purpose", notes: "some updated notes", start_date: ~D[2023-07-30], end_date: ~D[2023-07-30]}
+
+      update_attrs = %{
+        name: "some updated name",
+        theme: "some updated theme",
+        purpose: "some updated purpose",
+        notes: "some updated notes",
+        start_date: ~D[2023-07-30],
+        end_date: ~D[2023-07-30]
+      }
 
       assert {:ok, %Iteration{} = iteration} = Study.update_iteration(iteration, update_attrs)
       assert iteration.name == "some updated name"

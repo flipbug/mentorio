@@ -11,11 +11,31 @@ defmodule MentorioWeb.DashboardLive do
 
   def render(assigns) do
     ~H"""
-    <h1>Welcome back <%= @current_user.firstname %>! </h1>
-    <p>Hello world</p>
+    <div class="flex gap-4">
+      <div class="w-3/4">
+        <div class="mb-5">
+          <div class="font-display text-4xl font-bold">
+            Welcome back <span class="text-indigo-500"><%= @current_user.firstname %></span>!
+          </div>
+        </div>
 
-    <div :for={iteration <- @iterations}>
-      <p><%= iteration.theme %></p>
+        <div class="mb-10 rounded-lg p-5 bg-slate-800">
+          <div class="text-lg">
+            <span class="text-indigo-500"></span> No Iteration in progress
+          </div>
+          <a href="/iterations/new" class="block mt-8">
+            <.button>Create Iteration</.button>
+          </a>
+        </div>
+
+        <div class="flex flex-row flex-wrap">
+          <div :for={iteration <- @iterations}>
+            <p><%= iteration.theme %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-1/4"></div>
     </div>
     """
   end

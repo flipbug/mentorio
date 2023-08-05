@@ -5,7 +5,7 @@ defmodule MentorioWeb.IterationController do
   alias Mentorio.Study.Iteration
 
   def index(conn, _params) do
-    iterations = Study.list_iterations()
+    iterations = []
     render(conn, :index, iterations: iterations)
   end
 

@@ -1,13 +1,22 @@
-<.simple_form :let={f} for={@changeset} action={@action}>
-  <.error :if={@changeset.action}>
-    Oops, something went wrong! Please check the errors below.
-  </.error>
-  <.input field={f[:theme]} type="text" label="Theme" />
-  <.input field={f[:purpose]} type="text" label="Purpose" />
-  <.input field={f[:notes]} type="text" label="Notes" />
-  <.input field={f[:start_date]} type="date" label="Start date" />
-  <.input field={f[:end_date]} type="date" label="End date" />
-  <:actions>
-    <.button>Save Iteration</.button>
-  </:actions>
-</.simple_form>
+<div class="mx-auto max-w-2xl">
+  <.header>
+    New Iteration
+    <:subtitle>
+      Define a clear theme and the purpose behind it. This will help you focus
+    </:subtitle>
+  </.header>
+
+  <.simple_form :let={f} for={@changeset} action={@action}>
+    <.error :if={@changeset.action}>
+      Oops, something went wrong! Please check the errors below.
+    </.error>
+    <.input field={f[:theme]} type="text" label="Theme" />
+    <.input field={f[:purpose]} type="text" label="Purpose" />
+    <.input field={f[:notes]} type="textarea" label="Notes" />
+    <.input field={f[:start_date]} type="date" label="Start date" />
+    <.input field={f[:end_date]} type="date" label="End date" />
+    <:actions>
+      <.button>Save Iteration</.button>
+    </:actions>
+  </.simple_form>
+</div>

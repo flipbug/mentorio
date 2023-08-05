@@ -35,6 +35,11 @@ defmodule MentorioWeb.Router do
     live_session :admin,
       on_mount: [{MentorioWeb.UserAuth, :ensure_authenticated}] do
       live "/dashboard", DashboardLive, :index
+      live "/dashboard/iterations/new", IterationNewLive, :new
+      live "/dashboard/iterations/:id", IterationDetailLive, :index
+      live "/dashboard/iterations/:id", IterationDetailLive, :new
+      live "/dashboard/iterations/:id", IterationDetailLive, :edit
+      live "/dashboard/subjects/new", SubjectsNewLive, :new
     end
   end
 

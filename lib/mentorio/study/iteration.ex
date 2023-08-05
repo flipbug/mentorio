@@ -8,7 +8,9 @@ defmodule Mentorio.Study.Iteration do
     field :notes, :string
     field :start_date, :date
     field :end_date, :date
-    field :user_id, :id
+
+    belongs_to :user, Mentorio.Accounts.User
+    has_many :sessions, Mentorio.Study.Session
 
     timestamps()
   end
@@ -16,7 +18,12 @@ defmodule Mentorio.Study.Iteration do
   @doc false
   def changeset(iteration, attrs) do
     iteration
-    |> cast(attrs, [:theme, :purpose, :notes, :start_date, :end_date])
-    |> validate_required([:theme, :purpose, :start_date, :end_date])
+    |> cast(attrs, [:theme, :purpose, :notes, :start_date, :end_date, :user_id])
+    |> validate_required([:theme, :purpose, :start_date, :end_date, :user_id])
+  end
+
+  def changeset_notes(iteration, attrs) do
+    iteration
+    |> cast(attrs, [:notes])
   end
 end

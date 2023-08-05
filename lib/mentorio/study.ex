@@ -7,6 +7,7 @@ defmodule Mentorio.Study do
   alias Mentorio.Repo
 
   alias Mentorio.Study.Iteration
+  alias Mentorio.Study.Session
 
   @doc """
   Returns the list of iterations.
@@ -17,8 +18,8 @@ defmodule Mentorio.Study do
       [%Iteration{}, ...]
 
   """
-  def list_iterations do
-    Repo.all(Iteration)
+  def list_iterations(user_id) when is_integer(user_id) do
+    Repo.all(from i in Iteration, where: i.user_id == ^user_id)
   end
 
   @doc """
@@ -35,7 +36,11 @@ defmodule Mentorio.Study do
       ** (Ecto.NoResultsError)
 
   """
-  def get_iteration!(id), do: Repo.get!(Iteration, id)
+  def get_iteration!(id),
+    do:
+      Repo.get!(Iteration, id)
+      |> Repo.preload(sessions: from(s in Session, order_by: [desc: s.inserted_at]))
+      |> Repo.preload(sessions: [:subject])
 
   @doc """
   Creates a iteration.
@@ -102,6 +107,16 @@ defmodule Mentorio.Study do
     Iteration.changeset(iteration, attrs)
   end
 
+  def change_iteration_notes(%Iteration{} = iteration, attrs \\ %{}) do
+    Iteration.changeset_notes(iteration, attrs)
+  end
+
+  def update_iteration_notes(%Iteration{} = iteration, attrs) do
+    iteration
+    |> Iteration.changeset_notes(attrs)
+    |> Repo.update()
+  end
+
   alias Mentorio.Study.Subject
 
   @doc """
@@ -113,8 +128,8 @@ defmodule Mentorio.Study do
       [%Subject{}, ...]
 
   """
-  def list_subjects do
-    Repo.all(Subject)
+  def list_subjects(user_id) when is_integer(user_id) do
+    Repo.all(from i in Subject, where: i.user_id == ^user_id)
   end
 
   @doc """

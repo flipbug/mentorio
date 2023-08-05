@@ -5,7 +5,8 @@ defmodule Mentorio.Study.Subject do
   schema "subjects" do
     field :name, :string
     field :description, :string
-    field :user_id, :id
+
+    belongs_to :user, Mentorio.Accounts.User
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Mentorio.Study.Subject do
   @doc false
   def changeset(subject, attrs) do
     subject
-    |> cast(attrs, [:name, :description])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :description, :user_id])
+    |> validate_required([:name, :user_id])
   end
 end

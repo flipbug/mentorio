@@ -4,8 +4,8 @@ defmodule Mentorio.Study.Session do
 
   schema "sessions" do
     field :notes, :string
-    field :iteration_id, :id
-    field :subject_id, :id
+    belongs_to :subject, Mentorio.Study.Subject
+    belongs_to :iteration, Mentorio.Study.Iteration
 
     timestamps()
   end
@@ -13,7 +13,7 @@ defmodule Mentorio.Study.Session do
   @doc false
   def changeset(session, attrs) do
     session
-    |> cast(attrs, [:notes])
-    |> validate_required([:notes])
+    |> cast(attrs, [:iteration_id, :subject_id, :notes])
+    |> validate_required([:iteration_id, :subject_id])
   end
 end

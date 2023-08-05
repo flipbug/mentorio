@@ -1,8 +1,10 @@
-<.header>
-  New Iteration
-  <:subtitle>Use this form to manage iteration records in your database.</:subtitle>
-</.header>
+<div class="mx-auto max-w-2xl">
+  <.header>
+    New Iteration
+    <:subtitle>
+      Define a clear theme and the purpose behind it. This will help you focus
+    </:subtitle>
+  </.header>
 
-<.iteration_form changeset={@changeset} action={~p"/iterations"} />
-
-<.back navigate={~p"/iterations"}>Back to iterations</.back>
+  <.iteration_form changeset={@changeset} action={~p"/iterations"} />
+</div>

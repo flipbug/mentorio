@@ -1,8 +1,15 @@
 defmodule MentorioWeb.Helper do
   use MentorioWeb, :html
 
+  attr :date, :any, required: true
+
+  def formattedDate(assigns) do
+    ~H"""
+    <%= Calendar.strftime(assigns.date, "%A %d.%m.%Y") %>
+    """
+  end
+
   def logo(assigns) do
-    # no heex sigil since it doesn't seem to like this valid svg...
     ~H"""
     <div class="hover:opacity-80 inline-block">
       <svg viewBox="0 0 36 36" fill="none" role="img" xmlns="http://www.w3.org/2000/svg" width="35">

@@ -5,8 +5,8 @@ defmodule MentorioWeb.SubjectController do
   alias Mentorio.Study.Subject
 
   def index(conn, _params) do
-    subjects = Study.list_subjects()
-    render(conn, :index, subjects: subjects)
+    # subjects = Study.list_subjects()
+    render(conn, :index, subjects: [])
   end
 
   def new(conn, _params) do
